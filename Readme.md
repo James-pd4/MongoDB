@@ -86,3 +86,68 @@ Alura_Series> db.Series.distinct("Genero")
   'Romance',           'Suspense'
 ]
 ````
+
+
+
+### $lt (less than)
+ seleciona os documentos em que o valor de field é menor que (ou seja, <) o value especificado.
+
+### Sintaxe
+
+```bash
+{ field: { $lt: value } }
+```
+
+Exemplo:
+
+````bash
+Alura_Series> 
+db.Series.find({"IMDb Avaliação":{$lt: 8}})
+````
+
+````bash
+db.Series.countDocuments({"IMDb Avaliação": {$lt: 8}})
+````
+
+### $ne
+$ne seleciona os documentos onde o valor do campo especificado não é igual ao valor especificado. Isso inclui documentos que não contêm o campo especificado.
+
+### Sintaxe
+
+```bash
+{ field: { $ne: value } }
+```
+
+Exemplo:
+
+````bash
+Alura_Series> 
+db.Series.find({"IMDb Avaliação":{$ne: 8}})
+````
+
+### $nin (not in)
+$nin seleciona os documentos onde:
+
+- o valor de campo especificado não está na array especificada ou
+
+- o campo especificado não existe.
+
+### Sintaxe
+
+```bash
+{ field: { $nin: [ <value1>, <value2> ... <valueN> ] } }
+```
+
+Exemplo:
+
+````bash
+db.Series.find({
+    Genero: { $nin: ['Drama'] }
+})
+````
+
+# 2. Operadores de consulta de array
+
+- $all
+- $elemMatch
+- $size
