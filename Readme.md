@@ -151,3 +151,61 @@ db.Series.find({
 - $all
 - $elemMatch
 - $size
+
+#### $all 
+O operador $all no MongoDB é usado para verificar se um array contém todos os elementos especificados. Ele é particularmente útil quando você quer buscar documentos onde um campo do tipo array contém todos os valores de uma lista específica, independentemente da ordem.
+
+Exrmplo:
+
+```bash
+{
+    _id: ObjectId('67b6f289de4c1fe6bff73f18'),
+    'Série': 'The Man in the High Castle',
+    'Ano de lançamento': 2015,
+    'Temporadas disponíveis': 4,
+    Linguagem: 'Inglês',
+    Genero: [ 'Drama', 'Suspense' ],
+    'IMDb Avaliação': 8,
+    'Classificação': '18+'
+}
+```
+Se você quiser buscar todas as séries cujo campo Genero contenha tanto 'Drama' quanto 'Suspense', você pode usar o operador $all no mongosh assim:
+
+```bash
+db.series.find({
+    Genero: { $all: ['Drama', 'Suspense'] }
+})
+```
+
+
+# 3. Atualizar documentos em uma coleção
+
+####  updateOne
+
+O método updateOne permite que você especifique um filtro para encontrar o documento que deseja atualizar e, em seguida, aplicar as modificações desejadas. Aqui está um exemplo básico de como usar updateOne:
+
+```bash
+db.collection.updateOne(
+    { _id: ObjectId('67b6f289de4c1fe6bff73f18') }, // Filtro para encontrar o documento
+    { $set: { 'Série': 'The Man in the High Castle - Updated' } } // Atualização a ser aplicada
+)
+```
+
+posso usar o updateOne para inserir um campo que não existe, por exemplo
+
+```bash
+ {
+    _id: ObjectId('67b6f289de4c1fe6bff73f5e'),
+    'Série': 'Grimm',
+    'Ano de lançamento': 2012,
+    'Temporadas disponíveis': 7,
+    Linguagem: 'Inglês',
+    Genero: [ 'Drama', 'Ação', 'Aventura' ]
+  }
+  ```
+
+  vamos iserir o campo classicação nesse documento.
+
+  ```bash
+  db.Series.updateOne({'Série': 'Grimm'}, {$set: {'Classicação': '16+'}})
+  ```
